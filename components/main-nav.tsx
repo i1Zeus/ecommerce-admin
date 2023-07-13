@@ -11,6 +11,11 @@ export default function MainNav({
   const params = useParams();
   const routes = [
     {
+      herf: `/${params.storeId}`,
+      label: "Overview",
+      active: pathName === `/${params.storeId}`,
+    },
+    {
       herf: `/${params.storeId}/settings`,
       label: "Settings",
       active: pathName === `/${params.storeId}/settings`,
@@ -26,13 +31,13 @@ export default function MainNav({
           key={route.herf}
           href={route.herf}
           className={cn(
-            "text-sm font-medium transition-colors hover:text-primary",
+            "text-sm font-semibold px-2 transition-colors hover:text-primary",
             route.active
               ? "text-black dark:text-white"
               : "text-muted-foreground"
           )}
         >
-          Settings
+          {route.label}
         </a>
       ))}
     </nav>

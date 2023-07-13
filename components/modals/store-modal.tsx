@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { toast } from "react-hot-toast";
 
 const formSchema = z.object({
   name: z.string().min(2).max(150),
@@ -38,12 +39,11 @@ export const StoreModal = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
-
       const response = await axios.post("/api/stores", values);
 
-      console.log(response.data);
+      toast.success("Store created.");
     } catch (err) {
-      console.log(err);
+      toast.error("Something want wrong!");
     } finally {
       setLoading(false);
     }

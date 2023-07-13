@@ -1,8 +1,10 @@
-import "./globals.css";
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+
+import type { Metadata } from "next";
 import { ModalProvider } from "@/providers/modal-provider";
+
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

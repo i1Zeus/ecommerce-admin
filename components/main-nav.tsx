@@ -11,7 +11,7 @@ export default function MainNav({
   const params = useParams();
   const routes = [
     {
-      herf: `/${params.storeId}`,
+      herf: `/${params.storeId}/settings`,
       label: "Settings",
       active: pathName === `/${params.storeId}/settings`,
     },

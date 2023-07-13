@@ -1,10 +1,17 @@
-import { UserButton } from "@clerk/nextjs";
+"use client";
+
+import { Modal } from "@/components/ui/modal";
 
 const SetUpPage = () => {
   return (
-    <div className="p-4">
-      <UserButton />
-    </div>
+    <Modal
+      title="Title"
+      description="Test description"
+      isOpen={true}
+      onClose={() => {}}
+    >
+      stuff
+    </Modal>
   );
 };
 export default SetUpPage;

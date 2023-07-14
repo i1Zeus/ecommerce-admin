@@ -175,6 +175,11 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
         description={`${origin}/api/${params.storeId}/billboards`}
         variant="public"
       />
+      <ApiAlert
+        title="NEXT_PUBLIC_API_URL"
+        description={`${origin}/api/${params.storeId}/billboards/${params.billboardId}`}
+        variant="public"
+      />
     </>
   );
 };

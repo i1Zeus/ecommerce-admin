@@ -29,6 +29,8 @@ export const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
+
+      
     </>
   );
 };

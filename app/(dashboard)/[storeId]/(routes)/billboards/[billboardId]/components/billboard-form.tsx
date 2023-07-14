@@ -91,7 +91,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       router.push("/");
       toast.success("Billboard deleted.");
     } catch (error) {
-      toast.error("Make sure you don't have any category in your billboard!");
+      toast.error("Make sure you don't have any categories in your billboard!");
     } finally {
       setLoading(false);
       setOpen(false);

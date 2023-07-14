@@ -1,3 +1,5 @@
+import { Heading } from "@/components/ui/heading";
+import { Separator } from "@/components/ui/separator";
 import prismadb from "@/lib/prismadb";
 
 interface DashboardPageProps {
@@ -13,8 +15,8 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
 
   return (
     <div>
-      <h1>Dashboard</h1>
-      <p>Store ID: {store?.name}</p>
+      <Heading title={store?.name} description={store?.id} />
+      <Separator />
     </div>
   );
 };

@@ -49,7 +49,7 @@ export async function PATCH(
     });
 
     if (!storeByUserId)
-      return new NextResponse("Unauthorized", { status: 401 });
+      return new NextResponse("Unauthorized", { status: 403 });
 
     const billboard = await prismadb.billboard.updateMany({
       where: {
@@ -87,7 +87,7 @@ export async function DELETE(
     });
 
     if (!storeByUserId)
-      return new NextResponse("Unauthorized", { status: 401 });
+      return new NextResponse("Unauthorized", { status: 403 });
 
     const billboard = await prismadb.billboard.deleteMany({
       where: {

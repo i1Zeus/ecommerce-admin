@@ -1,23 +1,28 @@
 "use client";
 
 import * as z from "zod";
+import axios from "axios";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { Trash } from "lucide-react";
 import { Billboard, Category } from "@prisma/client";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import toast from "react-hot-toast";
-import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
-  FormControl,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Separator } from "@/components/ui/separator";
+import { Heading } from "@/components/ui/heading";
+import { AlertModal } from "@/components/modals/alert-modal";
 import {
   Select,
   SelectContent,
@@ -25,23 +30,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-import { Heading } from "@/components/ui/heading";
-import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
-import { AlertModal } from "@/components/modals/alert-modal";
 
-const fromSchema = z.object({
-  name: z.string().nonempty().min(1),
-  billboardId: z.string().nonempty().min(1),
+const formSchema = z.object({
+  name: z.string().min(2),
+  billboardId: z.string().min(1),
 });
+
+type CategoryFormValues = z.infer<typeof formSchema>;
 
 interface CategoryFormProps {
   initialData: Category | null;
   billboards: Billboard[];
 }
-
-type CategoryFormValues = z.infer<typeof fromSchema>;
 
 export const CategoryForm: React.FC<CategoryFormProps> = ({
   initialData,
@@ -53,13 +53,13 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? "Edit category" : "Add category";
-  const description = initialData ? "Edit a category" : "Add a New category";
-  const toastMessage = initialData ? "Category updated" : "Category created";
+  const title = initialData ? "Edit category" : "Create category";
+  const description = initialData ? "Edit a category." : "Add a new category";
+  const toastMessage = initialData ? "Category updated." : "Category created.";
   const action = initialData ? "Save changes" : "Create";
 
   const form = useForm<CategoryFormValues>({
-    resolver: zodResolver(fromSchema),
+    resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       name: "",
       billboardId: "",
@@ -80,8 +80,8 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
       router.refresh();
       router.push(`/${params.storeId}/categories`);
       toast.success(toastMessage);
-    } catch (error) {
-      toast.error("Something went wrong!");
+    } catch (error: any) {
+      toast.error("Something went wrong.");
     } finally {
       setLoading(false);
     }
@@ -94,10 +94,12 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
         `/api/${params.storeId}/categories/${params.categoryId}`
       );
       router.refresh();
-      router.push("/");
+      router.push(`/${params.storeId}/categories`);
       toast.success("Category deleted.");
-    } catch (error) {
-      toast.error("Make sure you don't have any items in your Category!");
+    } catch (error: any) {
+      toast.error(
+        "Make sure you removed all products using this category first."
+      );
     } finally {
       setLoading(false);
       setOpen(false);
@@ -109,21 +111,19 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={() => onDelete()}
+        onConfirm={onDelete}
         loading={loading}
       />
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
         {initialData && (
           <Button
-            variant="destructive"
             disabled={loading}
-            size={"icon"}
-            onClick={() => {
-              setOpen(true);
-            }}
+            variant="destructive"
+            size="sm"
+            onClick={() => setOpen(true)}
           >
-            <Trash className="w-4 h-4" />
+            <Trash className="h-4 w-4" />
           </Button>
         )}
       </div>
@@ -133,7 +133,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 w-full"
         >
-          <div className="grid grid-cols-3 gap-8">
+          <div className="md:grid md:grid-cols-3 gap-8">
             <FormField
               control={form.control}
               name="name"
@@ -142,8 +142,8 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
                   <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Category Name"
                       disabled={loading}
+                      placeholder="Category name"
                       {...field}
                     />
                   </FormControl>
@@ -157,36 +157,34 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Billboard</FormLabel>
-                  <FormControl>
-                    <Select
-                      disabled={loading}
-                      onValueChange={field.onChange}
-                      value={field.value}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue
-                            defaultValue={field.value}
-                            placeholder="Select a billboard"
-                          />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {billboards.map((billboard) => (
-                          <SelectItem key={billboard.id} value={billboard.id}>
-                            {billboard.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
+                  <Select
+                    disabled={loading}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder="Select a billboard"
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {billboards.map((billboard) => (
+                        <SelectItem key={billboard.id} value={billboard.id}>
+                          {billboard.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <Button disabled={loading} type="submit">
+          <Button disabled={loading} className="ml-auto" type="submit">
             {action}
           </Button>
         </form>

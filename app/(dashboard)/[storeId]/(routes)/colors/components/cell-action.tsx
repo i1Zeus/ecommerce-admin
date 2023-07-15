@@ -1,6 +1,6 @@
 "use client";
 
-import { SizeColumn } from "./columns";
+import { ColorColumn } from "./columns";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -17,11 +17,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { AlertModal } from "@/components/modals/alert-modal";
 
-interface SizeClientProps {
-  data: SizeColumn;
+interface ColorClientProps {
+  data: ColorColumn;
 }
 
-export const CellAction: React.FC<SizeClientProps> = ({ data }) => {
+export const CellAction: React.FC<ColorClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
 
@@ -36,12 +36,12 @@ export const CellAction: React.FC<SizeClientProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/sizes/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/colors/${data.id}`);
       router.refresh();
-      router.push(`/${params.storeId}/sizes`);
-      toast.success("Size deleted.");
+      router.push(`/${params.storeId}/colors`);
+      toast.success("Color deleted.");
     } catch (error) {
-      toast.error("Make sure you removed all product using this size first!");
+      toast.error("Make sure you removed all product using this color first!");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -67,7 +67,9 @@ export const CellAction: React.FC<SizeClientProps> = ({ data }) => {
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => router.push(`/${params.storeId}/sizes/${data.id}`)}
+              onClick={() =>
+                router.push(`/${params.storeId}/colors/${data.id}`)
+              }
             >
               <Edit className="mr-2 h-4 w-4" />
               Update

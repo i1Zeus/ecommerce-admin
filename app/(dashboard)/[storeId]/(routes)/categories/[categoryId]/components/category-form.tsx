@@ -36,7 +36,7 @@ interface BillboardFormProps {
 
 type BillboardFormValues = z.infer<typeof fromSchema>;
 
-export const BillboardForm: React.FC<BillboardFormProps> = ({
+export const CategoryForm: React.FC<BillboardFormProps> = ({
   initialData,
 }) => {
   const params = useParams();

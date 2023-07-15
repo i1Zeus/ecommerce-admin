@@ -60,7 +60,7 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm px-10 relative peer"
         />
-        <Search className="absolute left-[42px] w-5 h-5 text-gray-400 peer-focus:text-primary duration-100 peer-focus:transform-gpu" />
+        <Search className="absolute left-[42px] w-5 h-5 text-muted-foreground peer-focus:text-primary duration-100" />
       </div>
       <div className="rounded-md border">
         <Table>

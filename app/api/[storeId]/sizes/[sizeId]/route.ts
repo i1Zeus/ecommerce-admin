@@ -8,17 +8,17 @@ export async function GET(
 ) {
   try {
     if (!params.sizeId)
-      return new NextResponse("Billboard is required", { status: 400 });
+      return new NextResponse("Size is required", { status: 400 });
 
-    const billboard = await prismadb.billboard.findUnique({
+    const size = await prismadb.size.findUnique({
       where: {
         id: params.sizeId,
       },
     });
 
-    return NextResponse.json(billboard);
+    return NextResponse.json(size);
   } catch (err) {
-    console.log("[Billboard_GET]", err);
+    console.log("[Size_GET]", err);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -33,13 +33,12 @@ export async function PATCH(
 
     const body = await req.json();
 
-    const { label, imageUrl } = body;
-    if (!label) return new NextResponse("Label is required", { status: 400 });
-    if (!imageUrl)
-      return new NextResponse("Image URL is required", { status: 400 });
+    const { name, value } = body;
+    if (!name) return new NextResponse("Name is required", { status: 400 });
+    if (!value) return new NextResponse("Value is required", { status: 400 });
 
     if (!params.sizeId)
-      return new NextResponse("Billboard Id is required", { status: 400 });
+      return new NextResponse("Size Id is required", { status: 400 });
 
     const storeByUserId = await prismadb.store.findFirst({
       where: {
@@ -51,19 +50,19 @@ export async function PATCH(
     if (!storeByUserId)
       return new NextResponse("Unauthorized", { status: 403 });
 
-    const billboard = await prismadb.billboard.updateMany({
+    const size = await prismadb.size.updateMany({
       where: {
         id: params.sizeId,
       },
       data: {
-        label,
-        imageUrl,
+        name,
+        value,
       },
     });
 
-    return NextResponse.json(billboard);
+    return NextResponse.json(size);
   } catch (err) {
-    console.log("[Billboard_PATCH]", err);
+    console.log("[Size_PATCH]", err);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
@@ -77,7 +76,7 @@ export async function DELETE(
     if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
     if (!params.sizeId)
-      return new NextResponse("Billboard is required", { status: 400 });
+      return new NextResponse("Size is required", { status: 400 });
 
     const storeByUserId = await prismadb.store.findFirst({
       where: {
@@ -89,15 +88,15 @@ export async function DELETE(
     if (!storeByUserId)
       return new NextResponse("Unauthorized", { status: 403 });
 
-    const billboard = await prismadb.billboard.deleteMany({
+    const size = await prismadb.size.deleteMany({
       where: {
         id: params.sizeId,
       },
     });
 
-    return NextResponse.json(billboard);
+    return NextResponse.json(size);
   } catch (err) {
-    console.log("[Billboard_DELETE]", err);
+    console.log("[Size_DELETE]", err);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

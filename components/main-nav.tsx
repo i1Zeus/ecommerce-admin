@@ -36,6 +36,11 @@ export default function MainNav({
       active: pathName === `/${params.storeId}/colors`,
     },
     {
+      herf: `/${params.storeId}/products`,
+      label: "Products",
+      active: pathName === `/${params.storeId}/products`,
+    },
+    {
       herf: `/${params.storeId}/settings`,
       label: "Settings",
       active: pathName === `/${params.storeId}/settings`,

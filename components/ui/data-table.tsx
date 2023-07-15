@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Search } from "lucide-react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -50,15 +51,16 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center py-4">
         <Input
-          placeholder={`Filter ${
+          placeholder={`Search ${
             filterKey.charAt(0).toUpperCase() + filterKey.slice(1)
           }s...`}
           value={(table.getColumn(filterKey)?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn(filterKey)?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm px-10 relative peer"
         />
+        <Search className="absolute left-[42px] w-5 h-5 text-gray-400 peer-focus:text-primary duration-100 peer-focus:transform-gpu" />
       </div>
       <div className="rounded-md border">
         <Table>

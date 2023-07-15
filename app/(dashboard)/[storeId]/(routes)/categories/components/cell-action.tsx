@@ -17,11 +17,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { AlertModal } from "@/components/modals/alert-modal";
 
-interface BillboardClientProps {
+interface CategoryClientProps {
   data: CategoriesColumn;
 }
 
-export const CellAction: React.FC<BillboardClientProps> = ({ data }) => {
+export const CellAction: React.FC<CategoryClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
 
@@ -36,12 +36,12 @@ export const CellAction: React.FC<BillboardClientProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
       router.refresh();
-      router.push(`/${params.storeId}/billboards`);
-      toast.success("Billboard deleted.");
+      router.push(`/${params.storeId}/categories`);
+      toast.success("Category deleted.");
     } catch (error) {
-      toast.error("Make sure you don't have any categories in your billboard!");
+      toast.error("Make sure you don't have any items in your category!");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -68,7 +68,7 @@ export const CellAction: React.FC<BillboardClientProps> = ({ data }) => {
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() =>
-                router.push(`/${params.storeId}/billboards/${data.id}`)
+                router.push(`/${params.storeId}/categories/${data.id}`)
               }
             >
               <Edit className="mr-2 h-4 w-4" />

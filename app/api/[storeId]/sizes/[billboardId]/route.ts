@@ -4,15 +4,15 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   _req: Request,
-  { params }: { params: { storeId: string; billboardId: string } }
+  { params }: { params: { storeId: string; sizeId: string } }
 ) {
   try {
-    if (!params.billboardId)
+    if (!params.sizeId)
       return new NextResponse("Billboard is required", { status: 400 });
 
     const billboard = await prismadb.billboard.findUnique({
       where: {
-        id: params.billboardId,
+        id: params.sizeId,
       },
     });
 
@@ -25,7 +25,7 @@ export async function GET(
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { storeId: string; billboardId: string } }
+  { params }: { params: { storeId: string; sizeId: string } }
 ) {
   try {
     const { userId } = auth();
@@ -38,7 +38,7 @@ export async function PATCH(
     if (!imageUrl)
       return new NextResponse("Image URL is required", { status: 400 });
 
-    if (!params.billboardId)
+    if (!params.sizeId)
       return new NextResponse("Billboard Id is required", { status: 400 });
 
     const storeByUserId = await prismadb.store.findFirst({
@@ -53,7 +53,7 @@ export async function PATCH(
 
     const billboard = await prismadb.billboard.updateMany({
       where: {
-        id: params.billboardId,
+        id: params.sizeId,
       },
       data: {
         label,
@@ -70,13 +70,13 @@ export async function PATCH(
 
 export async function DELETE(
   _req: Request,
-  { params }: { params: { storeId: string; billboardId: string } }
+  { params }: { params: { storeId: string; sizeId: string } }
 ) {
   try {
     const { userId } = auth();
     if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
-    if (!params.billboardId)
+    if (!params.sizeId)
       return new NextResponse("Billboard is required", { status: 400 });
 
     const storeByUserId = await prismadb.store.findFirst({
@@ -91,7 +91,7 @@ export async function DELETE(
 
     const billboard = await prismadb.billboard.deleteMany({
       where: {
-        id: params.billboardId,
+        id: params.sizeId,
       },
     });
 

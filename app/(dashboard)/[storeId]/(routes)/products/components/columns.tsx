@@ -1,6 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+
 import { CellAction } from "./cell-action";
 
 export type ProductColumn = {
@@ -10,9 +11,9 @@ export type ProductColumn = {
   category: string;
   size: string;
   color: string;
+  createdAt: string;
   isFeatured: boolean;
   isArchived: boolean;
-  createdAt: string;
 };
 
 export const columns: ColumnDef<ProductColumn>[] = [
@@ -47,6 +48,7 @@ export const columns: ColumnDef<ProductColumn>[] = [
       <div className="flex items-center gap-x-2">
         <div
           className={`h-6 w-6 rounded-full border bg-[${row.original.color}]`}
+          style={{ backgroundColor: row.original.color }}
         />
         {row.original.color}
       </div>

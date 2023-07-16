@@ -4,6 +4,8 @@
 
 This is a repository for a Full Stack E-Commerce + Dashboard & CMS: Next.js 13 App Router, React, Tailwind, Prisma, MySQL
 
+## Check out the [STORE](https://github.com/i1Zeus/ecommerce-store) dashboard
+
 Key Features:
 
 - using **Shadcn UI** for the Admin!

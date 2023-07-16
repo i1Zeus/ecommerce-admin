@@ -15,7 +15,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
 
   return (
     <div>
-      <Heading title={store?.name} description={store?.id} />
+      <Heading title={String(store?.name)} description={String(store?.id)} />
       <Separator />
     </div>
   );

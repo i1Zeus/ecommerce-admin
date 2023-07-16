@@ -2,7 +2,7 @@ import { format } from "date-fns";
 
 import prismadb from "@/lib/prismadb";
 
-import { BillboardClient } from "./components/client";
+import { OrderClient } from "./components/client";
 import { OrderColumn } from "./components/columns";
 import { formatter } from "@/lib/utils";
 
@@ -35,13 +35,14 @@ const OrderPage = async ({ params }: { params: { storeId: string } }) => {
         return total + Number(item.product.price);
       }, 0)
     ),
+    isPaid: item.isPaid ? "Yes" : "No",
     createdAt: format(item.createdAt, "MMMM do, yyyy"),
   }));
 
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillboardClient data={formattedOrders} />
+        <OrderClient data={formattedOrders} />
       </div>
     </div>
   );

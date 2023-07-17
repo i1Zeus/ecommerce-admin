@@ -142,7 +142,7 @@ export const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
               control={form.control}
               name="value"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="relative">
                   <FormLabel>Value</FormLabel>
                   <FormControl>
                     <Input
@@ -152,6 +152,14 @@ export const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
                     />
                   </FormControl>
                   <FormMessage />
+                  {field.value ? (
+                    <div
+                      className={`h-6 w-6 rounded-full border absolute top-[32px] right-4 bg-[${field.value}]`}
+                      style={{ backgroundColor: field.value }}
+                    />
+                  ) : (
+                    ""
+                  )}
                 </FormItem>
               )}
             />

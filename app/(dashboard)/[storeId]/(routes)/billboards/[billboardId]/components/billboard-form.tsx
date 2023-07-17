@@ -163,7 +163,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
             />
           </div>
           <Button disabled={loading} type="submit">
-            {action}
+            {loading ? "Saving..." : action}
           </Button>
         </form>
       </Form>

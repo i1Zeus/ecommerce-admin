@@ -157,7 +157,7 @@ export const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
             />
           </div>
           <Button disabled={loading} type="submit">
-            {action}
+            {loading ? "Saving..." : action}
           </Button>
         </form>
       </Form>

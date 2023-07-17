@@ -365,7 +365,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             />
           </div>
           <Button disabled={loading} className="ml-auto" type="submit">
-            {action}
+            {loading ? "Saving..." : action}
           </Button>
         </form>
       </Form>

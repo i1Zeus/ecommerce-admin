@@ -157,7 +157,7 @@ export const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
             />
           </div>
           <Button disabled={loading} type="submit">
-            {action}
+            {loading ? "Saving..." : action}
           </Button>
         </form>
       </Form>

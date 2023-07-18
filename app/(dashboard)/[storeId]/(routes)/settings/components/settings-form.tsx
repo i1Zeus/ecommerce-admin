@@ -135,6 +135,11 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
         variant="public"
         description={`${origin}/api/${params.storeId}`}
       />
+      <ApiAlert
+        title="FRONTEND_STORE_URL"
+        variant="public"
+        description={`http://localhost:3001`}
+      />
     </>
   );
 };

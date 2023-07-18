@@ -16,6 +16,17 @@ import {
   Tv,
 } from "lucide-react";
 
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "@/components/ui/navigation-menu";
+
 export function MainNav({
   className,
   ...props
@@ -109,6 +120,39 @@ export function MainNav({
           </Link>
         </>
       ))}
+      <span className="block sm:hidden">
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Navigator</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                {routes.map((route) => (
+                  <>
+                    <NavigationMenuLink
+                      className={cn(
+                        "text-sm font-medium flex flex-col gap-2 px-3 py-2 transition-colors hover:text-primary",
+                        route.active
+                          ? "text-black dark:text-white bg-secondary dark:bg-secondary-dark px-3 py-2 rounded-md svg"
+                          : "text-muted-foreground"
+                      )}
+                      href={route.href}
+                      active={route.active}
+                    >
+                      <span
+                        className="flex items-center justify-start gap-x-2"
+                        title={route.title}
+                      >
+                        <Icon icon={route.icon} />
+                        {route.label}
+                      </span>
+                    </NavigationMenuLink>
+                  </>
+                ))}
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+      </span>
     </nav>
   );
 }

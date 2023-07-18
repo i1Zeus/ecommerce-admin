@@ -124,7 +124,9 @@ export function MainNav({
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Navigator</NavigationMenuTrigger>
+              <NavigationMenuTrigger className="font-medium text-sm border">
+                Go To
+              </NavigationMenuTrigger>
               <NavigationMenuContent>
                 {routes.map((route) => (
                   <>
@@ -132,7 +134,7 @@ export function MainNav({
                       className={cn(
                         "text-sm font-medium flex flex-col gap-2 px-3 py-2 transition-colors hover:text-primary",
                         route.active
-                          ? "text-black dark:text-white bg-secondary dark:bg-secondary-dark px-3 py-2 rounded-md svg"
+                          ? "text-black font-semibold dark:text-white bg-secondary dark:bg-secondary-dark px-3 py-2 rounded-md svg"
                           : "text-muted-foreground"
                       )}
                       href={route.href}

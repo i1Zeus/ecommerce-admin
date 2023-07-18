@@ -93,7 +93,7 @@ export function MainNav({
             key={route.href}
             href={route.href}
             className={cn(
-              "text-sm font-medium transition-colors hover:text-primary",
+              "text-sm font-medium hidden sm:block transition-colors hover:text-primary",
               route.active
                 ? "text-black dark:text-white bg-secondary dark:bg-secondary-dark px-3 py-2 rounded-md svg"
                 : "text-muted-foreground"

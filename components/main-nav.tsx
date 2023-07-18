@@ -29,48 +29,56 @@ export function MainNav({
       label: "Overview",
       active: pathname === `/${params.storeId}`,
       icon: <BarChart3 size={20} />,
+      title: "Overview",
     },
     {
       href: `/${params.storeId}/billboards`,
       label: "Billboards",
       active: pathname === `/${params.storeId}/billboards`,
       icon: <Tv size={20} />,
+      title: "Billboards",
     },
     {
       href: `/${params.storeId}/categories`,
       label: "Categories",
       active: pathname === `/${params.storeId}/categories`,
       icon: <SquareStack size={20} />,
+      title: "Categories",
     },
     {
       href: `/${params.storeId}/sizes`,
       label: "Sizes",
       active: pathname === `/${params.storeId}/sizes`,
       icon: <Ruler size={20} />,
+      title: "Sizes",
     },
     {
       href: `/${params.storeId}/colors`,
       label: "Colors",
       active: pathname === `/${params.storeId}/colors`,
       icon: <Palette size={20} />,
+      title: "Colors",
     },
     {
       href: `/${params.storeId}/products`,
       label: "Products",
       active: pathname === `/${params.storeId}/products`,
       icon: <Package size={20} />,
+      title: "Products",
     },
     {
       href: `/${params.storeId}/orders`,
       label: "Orders",
       active: pathname === `/${params.storeId}/orders`,
       icon: <ArrowUpDown size={20} />,
+      title: "Orders",
     },
     {
       href: `/${params.storeId}/settings`,
       label: "Settings",
       active: pathname === `/${params.storeId}/settings`,
       icon: <Settings size={20} />,
+      title: "Settings",
     },
   ];
 
@@ -91,9 +99,12 @@ export function MainNav({
                 : "text-muted-foreground"
             )}
           >
-            <span className="flex items-center justify-center gap-x-[6px]">
+            <span
+              className="flex items-center justify-center gap-x-[6px]"
+              title={route.title}
+            >
               <Icon icon={route.icon} />
-              {route.label}
+              <span className="hidden lg:block">{route.label}</span>
             </span>
           </Link>
         </>

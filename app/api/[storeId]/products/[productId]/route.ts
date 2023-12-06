@@ -128,13 +128,10 @@ export async function DELETE(
   try {
     const { userId } = auth();
 
-    if (!userId) {
-      return new NextResponse("Unauthenticated", { status: 403 });
-    }
+    if (!userId) return new NextResponse("Unauthenticated", { status: 403 });
 
-    if (!params.productId) {
+    if (!params.productId)
       return new NextResponse("Product id is required", { status: 400 });
-    }
 
     const storeByUserId = await prismadb.store.findFirst({
       where: {
